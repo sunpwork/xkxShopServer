@@ -14,4 +14,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/order/store','OrderController@store');
+Route::post('/order/store', 'OrderController@store');
+Route::get('/order/index/{brand_id}','OrderController@index');

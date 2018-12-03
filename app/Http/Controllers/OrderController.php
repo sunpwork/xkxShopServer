@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shopkeeper;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
@@ -10,6 +11,17 @@ use Webpatser\Uuid\Uuid;
 
 class OrderController extends Controller
 {
+
+    /**
+     * OrderController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('wechat.oauth',[
+            'except' => ['store']
+        ]);
+    }
+
     public function store(Request $request)
     {
         try {
@@ -30,12 +42,21 @@ class OrderController extends Controller
         ]);
         $orderGoods = $order->goods();
         foreach ($request->json('goodsList') as $good) {
-            $good = $orderGoods->create([
+            $orderGoods->create([
                 'id' => UUID::generate(),
                 'name' => $good['name'],
                 'price' => $good['price'],
                 'count' => $good['count']
             ]);
         }
+    }
+
+    public function index(int $brand_id)
+    {
+        $user = session('wechat.oauth_user.default');
+
+        Shopkeeper::where('openid',$user->getId())->firstOrFail();
+
+        dd($user->getName());
     }
 }
