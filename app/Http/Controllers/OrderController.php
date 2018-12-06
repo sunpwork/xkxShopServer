@@ -90,8 +90,8 @@ class OrderController extends Controller
     {
         $app->template_message->send([
             'touser' => $shopkeeper->openid,
-            'template_id' => 'I4CGfveGSpHkFjZDBd6y5iHVvbcAsbdVez--i3JLiPU',
-            'url' => 'http://e8966f0d.ngrok.io' . '/order/indexPending/' . $order->shop_id,
+            'template_id' => '8QtzD_HsDlZ2v5jFenNgQiO0n5Zf5Cy-Nnex91Y39uA',
+            'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/order/indexPending/' . $order->shop_id,
             'data' => [
                 'first' => '您好，您有一个新订单',
                 'keyword1' => $order->platform_id,
