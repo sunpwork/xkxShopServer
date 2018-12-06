@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Shop;
-use Overtrue\LaravelWeChat\ServiceProvider;
 use Webpatser\Uuid\Uuid;
 
 class OrderController extends Controller
@@ -16,12 +15,12 @@ class OrderController extends Controller
     /**
      * OrderController constructor.
      */
-//    public function __construct()
-//    {
-//        $this->middleware('wechat.oauth',[
-//            'except' => ['store']
-//        ]);
-//    }
+    public function __construct()
+    {
+        $this->middleware('wechat.oauth',[
+            'except' => ['store']
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -56,8 +55,8 @@ class OrderController extends Controller
 
     public function index(int $shop_id)
     {
-//        $wxUser = session('wechat.oauth_user.default');
-//        Shopkeeper::where('openid',$wxUser->getId())->firstOrFail();
+        $wxUser = session('wechat.oauth_user.default');
+        Shopkeeper::where('openid',$wxUser->getId())->firstOrFail();
 
         $shop = Shop::findOrFail($shop_id);
         $orders = $shop->orders()->orderBy('created_at', 'desc')
@@ -77,9 +76,9 @@ class OrderController extends Controller
         {
             session()->flash('warning','该订单已被接单！');
         }else {
-//            $wxUser = session('wechat.oauth_user.default');
-//            $shopkeeper = Shopkeeper::where('openid', $wxUser->getId())->firstOrFail();
-            $shopkeeper = Shopkeeper::find(1);
+            $wxUser = session('wechat.oauth_user.default');
+            $shopkeeper = Shopkeeper::where('openid', $wxUser->getId())->firstOrFail();
+//            $shopkeeper = Shopkeeper::find(1);
             $order->operator($shopkeeper);
         }
         return redirect()->back();
