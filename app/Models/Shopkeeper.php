@@ -12,4 +12,9 @@ class Shopkeeper extends Model
     {
     	return $this->belongsTo(Shop::class,'shop_id','id');
     }
+
+    public function operatorOrders()
+    {
+        return $this->hasMany(Order::class,'operator_shopkeeper_id',$this->primaryKey);
+    }
 }

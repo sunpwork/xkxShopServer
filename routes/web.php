@@ -16,3 +16,5 @@ Route::get('/', function () {
 
 Route::post('/order/store', 'OrderController@store');
 Route::get('/order/index/{brand_id}','OrderController@index');
+Route::get('/order/show/{order}','OrderController@show');
+Route::get('/order/operator/{order}','OrderController@operator')->name('order.operator');
