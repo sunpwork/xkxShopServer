@@ -17,7 +17,7 @@ class CreateOrderTable extends Migration
             //$table->increments('id');
             $table->uuid('id');
             $table->integer('shop_id');
-            $table->integer('platform_id');
+            $table->integer('platform_id')->unique();
             $table->timestamps();
         });
     }
