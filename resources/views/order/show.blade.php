@@ -7,7 +7,7 @@
 
 @section('page__bd')
     <div class="weui-panel">
-        <div class="weui-panel__hd">订单详情</div>
+        <div class="weui-panel__hd">订单编号：{{ $order->platform_id }}</div>
         <div class="weui-panel__bd">
             <div class="weui-form-preview">
                 <div class="weui-form-preview__hd">
