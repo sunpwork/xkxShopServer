@@ -17,6 +17,6 @@ class ShopkeeperController extends Controller
 
     public function getWxUserInfo()
     {
-        dd(session('wechat.oauth_user.default'));
+        dd(session('wechat.oauth_user.default')->getId());
     }
 }
